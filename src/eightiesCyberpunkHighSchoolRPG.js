@@ -33,8 +33,9 @@ export const gainAbility = (prop) => { // basic numerical state update
     });
 };
 
-const callTheCops = () => {
-  return `The character calls the cops`;
+const callTheCops = (name) => {
+  // charStateControl(minusOneCon, "Xander");
+  return `${name} calls the cops`;
 }   
 
 const charStateControl = storeState();
@@ -50,16 +51,16 @@ const addJoeToState = charStateControl(joeTheEvilPrincipal); // this represents 
 const addHelenToState = charStateControl(helenTheEvilPrincipal); // this represents a state that contains Joe & Helen
 const addXanderToState = charStateControl(xanderTheUndervaluedJanitor);
 
-const addOneCon = changeState("constitution")(1)
+const addOneCon = changeState("constitution")(1);
 // const addOneSpeed = changeState("speed")(1)
 // const addOneTech = changeState("tech")(1)
 // const addOneAuth = changeState("authority")(1)
 // const addOneLooks = changeState("looks")(1)
 // const addOnePrinc = changeState("principles")(1)
 // const minusOneCon = changeState("constitution")(-1)
-const minusOneSpeed = changeState("speed")(-1)
-const minusOneTech = changeState("tech")(-1)
-// const minusOneAuth = changeState("authority")(-1)
+const minusOneSpeed = changeState("speed")(-1);
+const minusOneTech = changeState("tech")(-1);
+const minusOneAuth = changeState("authority")(-1);
 // const minusOneLooks = changeState("constitution")(-1)
 // const minusOnePrinc = changeState("principles")(-1)
 
@@ -73,7 +74,6 @@ console.log(addJoeToState);
 console.log(addHelenToState);
 console.log(addXanderToState);
 console.log(helenConUp);
-console.log(gainCallTheCops);
 console.log(newerState.Joe.ability());
 
 // User Interface //
@@ -84,7 +84,21 @@ $(document).ready(function() {
     const joe = charStateControl(minusOneSpeed, "Joe");
     const xander = charStateControl(minusOneTech, "Xander");
     
-    $('#joe-stats').text(`Joe's speed is now: ${joe.Joe.speed}`);
-    $('#xander-stats').text(`Xander's tech is now: ${xander.Xander.tech}`);
-  });
+    
+
+    if (joe.Joe.speed === 0) {
+        $('#ability-text').text(`${joe.Joe.ability(Object.keys(joe)[0])}`);     
+        console.log(joe)                              // Joe: {name:  asdlfjka: alsdjfa;lsdjf: }
+        const xanderGetsArrested = charStateControl(minusOneAuth, "Xander");
+        console.log(xanderGetsArrested);
+        
+        $('#xander-stats').text(`Xander's authority is now: ${xander.Xander.authority}`);
+        $('#joe-stats').text(`Joe's speed is now: ${joe.Joe.speed}`);
+      } else {
+        $('#joe-stats').text(`Joe's speed is now: ${joe.Joe.speed}`);
+        $('#xander-stats').text(`Xander's tech is now: ${xander.Xander.tech}`);
+      }
+    }
+  );
 });
+
